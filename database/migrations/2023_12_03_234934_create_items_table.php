@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
-            $table->text('photos');
-            $table->text('features');
-            $table->integer('price');
-            $table->integer('star');
-            $table->integer('review');
+            $table->string('slug')->unique();
+            $table->string('photos')->nullable();
+            $table->text('features')->nullable();
+            $table->integer('price')->nullable();
+            $table->double('star')->nullable();
+            $table->integer('review')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

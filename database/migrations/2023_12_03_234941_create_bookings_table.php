@@ -13,16 +13,25 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->text('address');
-            $table->string('city');
-            $table->string('zip');
-            $table->string('payment_method');
-            $table->string('payment_status');
-            $table->string('payment_url');
-            $table->string('total_price');
+             // name
+            $table->string('name')->nullable();
+
+            // start and end date
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+
+            // address
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('zip')->nullable();
+
+            // payment
+            $table->string('payment_method')->default('midtrans');
+            $table->string('payment_status')->default('pending');
+            $table->string('payment_url')->nullable();
+
+            // total price
+            $table->integer('total_price')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
