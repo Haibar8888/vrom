@@ -10,6 +10,10 @@ use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 use App\Http\Requests\BrandRequest;
 
+// sweet alert 
+use RealRashid\SweetAlert\Facades\Alert;
+
+
 class BrandsController extends Controller
 {
     /**
@@ -61,7 +65,7 @@ class BrandsController extends Controller
         $data['slug'] = Str::slug($data['name']) . '-' . Str::lower(Str::random(5));
 
         $brands = Brand::create($data);
-
+        Alert::success('Success', 'Data berhasil ditambahkan');
         return redirect()->route('brands.index');
     }
 
@@ -71,29 +75,40 @@ class BrandsController extends Controller
     public function show(string $id)
     {
         //
+        return abort(404);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Brand $brand)
     {
         //
+        return view('admin.brands.edit', compact('brand'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Brand $brand)
     {
         //
+        $data = $request->all();
+        $data['slug'] = Str::slug($data['name']) . '-' . Str::lower(Str::random(5));
+
+        $brand->update($data);
+        Alert::success('Success', 'Data berhasil diedit');
+        return redirect()->route('brands.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Brand $brand)
     {
         //
+        $brand->delete();
+        Alert::success('Success', 'Data berhasil dihapus');
+        return back()->with('success', 'data berhasil dihapus');
     }
 }
