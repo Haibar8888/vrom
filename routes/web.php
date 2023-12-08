@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backsite\BrandsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::middleware([
         return view('admin/dashboard');
     })->name('dashboard');
 });
+
+Route::resource('/brands', BrandsController::class);
