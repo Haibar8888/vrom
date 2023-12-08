@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backsite\BrandsController;
+use App\Http\Controllers\Backsite\TypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,14 +19,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/dashboard', function () {
         return view('admin/dashboard');
     })->name('dashboard');
-
+    // brand
     Route::resource('/brands', BrandsController::class);
+    // type
+    Route::resource('/type', TypeController::class);
 });
+
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified',
+// ])->group(function () {
+   
+
+   
+// });

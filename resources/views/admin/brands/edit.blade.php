@@ -28,7 +28,7 @@
             </div>
           </div>
         @endif
-        <form class="w-full" action="{{ route('brands.update', $brand->id) }}" method="post"
+        <form class="w-full" action="{{ route('admin.brands.update', $brand->id) }}" method="post"
               enctype="multipart/form-data">
           @csrf
           @method('put')
